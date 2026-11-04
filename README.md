@@ -205,6 +205,22 @@ El intervalo nominal de simulación es $0 \le t \le 10\,\mathrm{s}$ con un paso 
 
 La simulación se ejecuta desde el *Live Script* `Cid_23212186.mlx`, cargando el modelo de Simulink `sistema.slx` y generando automáticamente los resultados gráficos en formato vectorial (`.pdf`).
 
+Se comparan tres representaciones computacionales equivalentes:
+
+| Implementación | Descripción | Aspecto por verificar |
+|---|---|---|
+| Ecuaciones diferenciales, Simulink | Bloques de suma, ganancias e integradores | Consistencia con el equilibrio mecánico |
+| Función de transferencia, Simulink | Bloque $G(s) = X(s)/F(s)$ | Respuesta dinámico-frecuencial del modelo |
+| Circuito equivalente, Simscape Electrical | Red de componentes $R$, $C_s$, $C_p$ y fuente $V(t)$ | Concordancia entre el dominio eléctrico y el mecánico |
+
+### Ejecución desde el cuaderno MATLAB
+
+El cuaderno `.mlx` ejecuta el modelo de Simulink e extrae las señales al *Workspace*:
+1. **Entrada de Fuerza:** $F(t)$.
+2. **Salida Control (Sano):** $x_{\mathrm{control}}(t)$.
+3. **Salida Caso (Atrofia):** $x_{\mathrm{caso}}(t)$.
+4. **Salida Caso Controlado (PID):** $x_{\mathrm{PID}}(t)$.
+
 [Volver al contenido](#contenido)
 
 ---
@@ -237,6 +253,12 @@ $$e(t) = x_{\mathrm{control}}(t) - x_{\mathrm{caso}}(t)$$
 ## Reproducción en Python
 
 El script `Cid23212186.py` reproduce de manera independiente la simulación mediante las librerías `control`, `scipy.signal`, `numpy` y `matplotlib`, validando la función de transferencia y la acción del controlador PI.
+
+1. Definición del vector de tiempo $t \in [0, 10]\,\mathrm{s}$.
+2. Definición de las funciones de transferencia $G_{\mathrm{control}}(s)$ y $G_{\mathrm{caso}}(s)$.
+3. Cálculo de la respuesta al impulso (`scipy.signal.impulse`).
+4. Construcción del sistema en lazo cerrado con el controlador PID.
+5. Generación y exportación de figuras en formato PDF.
 
 [Volver al contenido](#contenido)
 
