@@ -227,27 +227,24 @@ El cuaderno `.mlx` ejecuta el modelo de Simulink e extrae las señales al *Works
 ---
 
 <a id="pid"></a>
-## Control en lazo cerrado y sintonización PID
+## Control en lazo cerrado y sintonización PI
 
-### 1. Retroalimentación negativa
+Se toma como señal de referencia la respuesta del individuo sano $x_{\mathrm{control}}(t)$ para corregir la dinámica del caso atrófico $x_{\mathrm{caso}}(t)$ mediante un **controlador PI**.
 
-Se toma la respuesta del individuo sano $x_{\mathrm{control}}(t)$ como señal de referencia para el caso atrófico $x_{\mathrm{caso}}(t)$. La señal de error es:
+$$e(t) = x_{\mathrm{control}}(t) - x_{\mathrm{caso}}(t)$$
 
-$$e(t) = x_{\mathrm{control}}(t) - x_{\mathrm{caso}}(t).$$
+### Parámetros del controlador PI sintonizado (`PID Tuner` de Simulink)
 
-La ley del controlador PID ideal es:
-
-$$u(t) = k_P e(t) + k_I \int_0^t e(\tau)\,d\tau + k_D \frac{de(t)}{dt}.$$
-
-### 2. Sintonización
-
-Utilizando la herramienta `Tune` de Simulink sobre el modelo de la planta en caso de atrofia, se obtienen las ganancias $k_P, k_I, k_D$ necesarias para acelerar la respuesta del paciente y reducir la discrepancia transitoria con la referencia sana.
-
-### 3. Realización analógica con OpAmps
-
-El controlador PID se implementa analógicamente utilizando amplificadores operacionales en configuración inversora. Las relaciones para la elección de componentes comerciales son:
-
-$$k_P = \frac{R_r}{R_e}, \qquad k_I = \frac{1}{R_e C_r}, \qquad k_D = C_e R_r.$$
+| Parámetro / Métrica | Valor del bloque |
+|---|---|
+| **Tipo de controlador** | **PI** |
+| **Ganancia Proporcional ($P$)** | `0.021971` |
+| **Ganancia Integral ($I$)** | `41303.6113` |
+| **Ganancia Derivativa ($D$)** | `n/a` |
+| **Tiempo de subida (Rise time)** | `0.000583 s` |
+| **Tiempo de establecimiento (Settling time)** | `0.00102 s` |
+| **Sobremecimiento (Overshoot)** | `0.108 %` |
+| **Estabilidad en lazo cerrado** | **Estable** |
 
 [Volver al contenido](#contenido)
 
@@ -275,7 +272,7 @@ Convención gráfica de curvas:
 - **Amarillo:** Entrada de fuerza aplicada, $F(t)$.
 - **Azul:** Respuesta del individuo sano / Control, $x_{\mathrm{control}}(t)$.
 - **Rojo / Naranja:** Respuesta del caso con atrofia muscular en lazo abierto, $x_{\mathrm{caso}}(t)$.
-- **Verde:** Respuesta del paciente con atrofia controlado mediante PID, $x_{\mathrm{PID}}(t)$.
+- **Verde:** Respuesta del paciente con atrofia controlado mediante PI, $x_{\mathrm{PID}}(t)$.
 
 ### Archivos de resultados
 
@@ -291,12 +288,14 @@ Convención gráfica de curvas:
 <a id="diagrama-biologico"></a>
 ## Diagrama biológico
 
-El diagrama biológico elaborado en BioRender establece la correspondencia entre los componentes anatómicos y las variables del modelo:
+El diagrama biológico elaborado en BioRender establece la equivalencia entre las estructuras anatómicas y las variables del modelo mecánico[cite: 185]:
 
-- **Elemento Contráctil ($F_0$):** Sarcómeros y puentes cruzados de actina-miosina.
-- **Elemento Elástico Serie ($C_s$):** Tendón y bandas Z.
-- **Elemento Elástico Paralelo ($C_p$):** Epimisio, perimisio, endomisio y sarcolema.
-- **Amortiguador Viscoso ($R$):** Fricción del líquido sarcoplásmico y viscosidad tisular.
+- **$F_0$ (Elemento contráctil):** Fuerza activa generada por los sarcómeros.
+- **$C_s$ (Tendón):** Elementos elásticos en serie.
+- **$C_p$ (Estructuras elásticas musculares):** Sarcolema, epimisio, perimisio y endomisio.
+- **$R$ (Elemento viscoso/elástico):** Comportamiento viscoso tisular ($R = 100\,\Omega$ en sano vs. $R = 10\,\mathrm{k}\Omega$ en atrofia).
+
+![Diagrama Biológico](Diagrama%20biologico.png)
 
 [Volver al contenido](#contenido)
 
