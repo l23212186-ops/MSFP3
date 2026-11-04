@@ -1,4 +1,4 @@
-# Práctica 5.5 — Modelado y control del sistema musculoesquelético
+# Práctica — Modelado y control del sistema musculoesquelético
 
 Repositorio académico de la asignatura **Modelado de Sistemas Fisiológicos**, correspondiente al programa de **Ingeniería Biomédica** del Tecnológico Nacional de México / Instituto Tecnológico de Tijuana. Esta práctica integra el modelado mecánico de tejidos viscoelásticos, analogías electromecánicas fuerza-voltaje, análisis temporal y de estabilidad, diseño de un **controlador PI** en lazo cerrado, simulación computacional *in silico* y verificación cruzada.
 
