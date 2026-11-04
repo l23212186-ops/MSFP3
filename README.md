@@ -342,12 +342,15 @@ flowchart TD
 ```text
 .
 ├── README.md                      # Reporte y guía de reproducción
+├── Caso_matlab.pdf                # Exportación de la figura de matlab en PDF
+├── Caso_python.pdf                # Exportación de la figura de python en PDF
 ├── Cid_23212186.mlx               # Cuaderno MATLAB del estudiante
 ├── Cid_23212186.pdf               # Exportación del cuaderno en PDF
-├── Cid23212186.py                 # Script de simulación en Python con control PI
-├── modelo_musculoesqueletico.slx  # Modelo Simulink/Simscape del sistema
+├── Cid23212186.py                 # Script de simulación en Python
+├── Controlador PID.png            # Imagen del controlador PI
 ├── Diagrama biologico.png         # Esquema biológico de BioRender
 └── Analisis matematico.pdf        # Demostración matemática por superposición
+└── CITATION.cff                   # Datos de citación del repositorio
 ```
 
 [Volver al contenido](#contenido)
@@ -357,20 +360,50 @@ flowchart TD
 <a id="requisitos"></a>
 ## Requisitos
 
-- **MATLAB** (R2023b o superior) con Control System Toolbox.
-- **Simulink** y **Simscape Electrical**.
-- **Python 3.10+** con las librerías `numpy`, `scipy`, `matplotlib` y `control`.
+- **MATLAB** y **Simulink**, con el modelo y el cuaderno de referencia.
+- **Simscape Electrical**, para construir el circuito de componentes eléctricos.
+- Herramientas de Simulink para diseño y sintonización del bloque **PID Controller**.
+- **Python** y **Visual Studio Code** para ejecutar el programa suministrado.
+- Las bibliotecas Python que importe efectivamente el código de referencia.
+- **Git y GitHub** para organizar y presentar el repositorio de la práctica.
+
+Para el ejemplo opcional de MATLAB de esta guía que utiliza `tf` y `pole`, es necesario disponer de las funciones correspondientes de **Control System Toolbox**. Las versiones mínimas del software no se especifican en el instructivo.
 
 [Volver al contenido](#contenido)
 
 ---
 
 <a id="reproducibilidad"></a>
-## Reproducibilidad y entregables
+### Secuencia de reproducción
 
-1. Clonar el repositorio.
-2. Abrir y ejecutar `Cid_23212186.mlx` en MATLAB para compilar los modelos de Simulink.
-3. Ejecutar el script `Cid23212186.py` en Python para corroborar las respuestas gráficas.
+1. Consultar el [repositorio general de la asignatura](https://github.com/DrPaulValle/MSF-IBF1020) y descargar los archivos proporcionados para la práctica.
+2. Verificar la topología del circuito.
+3. Derivar el modelo y completar el análisis de polos y error en estado estacionario.
+4. Ejecutar los modelos de Simulink y Simscape con las cuatro entradas definidas.
+5. Sintonizar el PI y registrar las ganancias y la evidencia de los criterios de diseño.
+6. Ejecutar el cuaderno MATLAB y exportar la respuesta.
+7. Sustituir las ganancias en Python, reproducir las señales y exportar la figura.
+8. Verificar la implementación del PID mediante componentes y realizar los montajes experimentales en lazo abierto y cerrado.
+9. Comparar resultados, explicar diferencias y completar este README con las evidencias propias.
+10. Publicar el repositorio con sus fuentes y `CITATION.cff`.
+
+### Resultados mínimos esperados
+
+| Entregable | Evidencia solicitada |
+|---|---|
+| Formulación matemática | Ecuaciones, función de transferencia y modelo de primer orden |
+| Análisis del sistema | Cálculo de polos, estabilidad, error y bosquejo de respuesta |
+| Simulaciones | Modelo `.slx` y respuestas en lazo abierto y cerrado |
+| Sintonización | Ganancias PID, figura de respuesta y verificación de $t_s$ y $M_p$ |
+| MATLAB | Cuaderno `.mlx`, exportación `.pdf` y cuatro figuras |
+| Python | Código `.py` y cuatro figuras |
+| Controlador analógico | Cálculo de componentes, diseño y comparación con el PI ideal |
+| Documentación | `README.md`, `CITATION.cff` e interpretación de los resultados |
+
+### Criterios de presentación académica
+
+En el README final debe distinguirse entre **resultados de referencia reproducidos**, **mediciones experimentales propias** y **modificaciones realizadas por el estudiante**. La ejecución de scripts y la generación de figuras, por sí solas, no sustituyen la discusión del comportamiento fisiológico, matemático y eléctrico del sistema.
+
 
 [Volver al contenido](#contenido)
 
